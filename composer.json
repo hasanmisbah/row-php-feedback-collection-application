@@ -1,0 +1,17 @@
+{
+    "name": "hasanmisbah/feedback-application",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hasanmisbah\\FeedbackApplication\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hasan Misbah",
+            "email": "hasanmisbah01@gmail.com"
+        }
+    ],
+    "require": {}
+}
