@@ -10,7 +10,7 @@
 run the following command in the terminal
 ```
  composer install
- php -S localhost:8000 -t
+ php -S localhost:8000
 ```
 
 ## Author
