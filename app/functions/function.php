@@ -3,10 +3,7 @@
 if (!function_exists('view')) {
     function view($view, $data = [])
     {
-        $instance = \Hasanmisbah\FeedbackApplication\App::instance('view');
-        $view = str_replace('.', DIRECTORY_SEPARATOR, $view);
-        extract($data);
-        return $instance()->render($view, $data);
+        return \Hasanmisbah\FeedbackApplication\Core\Response\Response::view($view, $data);
     }
 }
 
@@ -25,7 +22,7 @@ if (!function_exists('request')) {
     }
 }
 
-if(!function_exists('generateUniqueString')) {
+if (!function_exists('generateUniqueString')) {
     function generateUniqueString($length = 32)
     {
         // Ensure the length is at least 1 and a reasonable maximum (like 128).
@@ -47,18 +44,13 @@ if(!function_exists('generateUniqueString')) {
 if (!function_exists('authenticatedUser')) {
     function authenticatedUser()
     {
-        if (isAuthenticated()) {
-            return $_SESSION['icff_user'];
-        }
-
-        return null;
-
+        return \Hasanmisbah\FeedbackApplication\Core\Auth\Auth::user();
     }
 }
 
-if(!function_exists('isAuthenticated')) {
+if (!function_exists('isAuthenticated')) {
     function isAuthenticated()
     {
-        return !empty($_SESSION['icff_user']);
+        return \Hasanmisbah\FeedbackApplication\Core\Auth\Auth::check();
     }
 }

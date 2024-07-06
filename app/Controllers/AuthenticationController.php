@@ -2,6 +2,8 @@
 
 namespace Hasanmisbah\FeedbackApplication\Controllers;
 
+use Hasanmisbah\FeedbackApplication\Core\Auth\Auth;
+use Hasanmisbah\FeedbackApplication\Core\Response\Response;
 use Hasanmisbah\FeedbackApplication\Models\User;
 
 class AuthenticationController
@@ -15,7 +17,7 @@ class AuthenticationController
     public function login()
     {
         $this->redirectIfAuthenticated();
-        return view('auth.login');
+        return Response::view('auth.login');
     }
 
     public function authenticate()
@@ -25,8 +27,8 @@ class AuthenticationController
         $user = (new User())->find('email', $email);
 
         if($user && password_verify($password, $user['password'])) {
-            $_SESSION['icff_user'] = $user;
-            header('Location: /');
+            Auth::login($user);
+            Response::redirect('/dashboard');
         }else {
             throw new \Exception('Invalid email or password');
         }
@@ -56,8 +58,8 @@ class AuthenticationController
 
     public function redirectIfAuthenticated()
     {
-        if(isAuthenticated()) {
-            header('Location: /');
+        if(Auth::check()) {
+            Response::redirect('/dashboard');
         }
     }
 }

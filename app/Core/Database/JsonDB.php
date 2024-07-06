@@ -2,7 +2,7 @@
 
 namespace Hasanmisbah\FeedbackApplication\Core\Database;
 
-class JsonDB
+class JsonDB implements \Hasanmisbah\FeedbackApplication\Core\Contracts\JSONDB
 {
     protected $dbPath;
 
