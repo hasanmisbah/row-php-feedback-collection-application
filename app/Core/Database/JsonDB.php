@@ -12,6 +12,10 @@ class JsonDB implements \Hasanmisbah\FeedbackApplication\Core\Contracts\JSONDB
 
     protected $key = null;
 
+    protected $table;
+
+    protected $where = [];
+
     public function __construct($application, $dbPath)
     {
         $this->application = $application;
@@ -34,6 +38,34 @@ class JsonDB implements \Hasanmisbah\FeedbackApplication\Core\Contracts\JSONDB
 
         $this->db = json_decode(file_get_contents($this->dbPath), true);
 
+    }
+
+    public function where($key, $value)
+    {
+        $this->where[$key] = $value;
+        return $this;
+    }
+
+    public function get()
+    {
+        $items = $this->all();
+        $filteredItems = [];
+
+        foreach ($items as $item) {
+            $match = true;
+
+            foreach ($this->where as $key => $value) {
+                if($item[$key] !== $value) {
+                    $match = false;
+                }
+            }
+
+            if($match) {
+                $filteredItems[] = $item;
+            }
+        }
+
+        return $filteredItems;
     }
 
     public function all()
